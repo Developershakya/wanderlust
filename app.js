@@ -1,11 +1,25 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const MONGO_URL = 'mongodb://localhost:27017/wanderlust'
+const express =require('express');
 const app = express();
-main.then(console.log('connect db')).catch(console.log('not connected'));
-async function main() {
+const mongoose = require('mongoose');
+const listing = require('./models/listing');
+const MONGO_URL = 'mongodb://localhost:27017/wanderlust';
+
+async function main(){
     await mongoose.connect(MONGO_URL);
 }
+main().then(console.log('connect db')).catch(
+);
 app.listen(3000,()=>{
-    console.log('hello');
-})
+    console.log('server is running');
+});
+
+app.get('/test', async (req,res)=>{
+    res.send('hello world');
+    let sample = new listing({
+        title:'hi',
+        description:'1',
+        image:'3'
+    });
+    await sample.save();
+});
+
